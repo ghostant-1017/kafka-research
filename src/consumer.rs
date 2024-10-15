@@ -9,7 +9,7 @@ use futures::StreamExt;
 use tokio::task::JoinHandle;
 use crate::data::Request;
 
-struct CustomContext;
+pub struct CustomContext;
 
 impl ClientContext for CustomContext {}
 
@@ -27,10 +27,10 @@ impl ConsumerContext for CustomContext {
     }
 }
 
-type LoggingConsumer = StreamConsumer<CustomContext>;
+pub type LoggingConsumer = StreamConsumer<CustomContext>;
 
 pub struct PoolConsumer {
-    inner: LoggingConsumer,
+    pub inner: LoggingConsumer,
 }
 
 impl PoolConsumer {
