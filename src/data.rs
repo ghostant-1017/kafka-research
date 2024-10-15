@@ -55,19 +55,36 @@
 // }
 //
 
+use rand::RngCore;
+use crate::SOLUTION_TOPIC_PREFIX;
+
 pub trait Request {
     fn to_topic(&self) -> String;
     fn to_data(&self) -> String;
 }
 
-pub struct MockRequest {}
+pub struct MockRequest {
+    epoch: u32,
+    data: String,
+}
+
+impl MockRequest {
+    pub fn random(epoch: u32) -> Self {
+        let mut rng = rand::thread_rng();
+        let data: String = (0..10)
+            .map(|_| rng.next_u32().to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+        Self { epoch, data }
+    }
+}
 
 impl Request for MockRequest {
     fn to_topic(&self) -> String {
-        "test-topic".to_string()
+        format!("{}-{}",SOLUTION_TOPIC_PREFIX, self.epoch)
     }
 
     fn to_data(&self) -> String {
-        "test-data".to_string()
+        self.data.clone()
     }
 }

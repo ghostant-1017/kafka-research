@@ -4,7 +4,6 @@ use rdkafka::producer::{FutureProducer, FutureRecord};
 use rdkafka::ClientConfig;
 use std::time::Duration;
 
-// pub const SOLUTION_TOPIC_PREFIX: &'static str = "pool-solution-epoch-";
 
 pub struct PoolProducer {
     inner: FutureProducer,
